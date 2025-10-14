@@ -45,7 +45,26 @@ function Pular() {
   pulando = true;
 
   let intervalosubida = setInterval(() => {
-    //subir
-    //descer
+    //Intervalo que faz o dino subir
+    if(posicao > 150){
+        clearInterval(intervalosubida);
+    
+        //descer
+
+        let intervalodescida = setInterval(()=> {
+            if(posicao <0){
+                //chegou ao chão: limpar o intervalo e permitir pular de novo
+                clearInterval(intervalodescida);
+                pulando = false;
+            }else{
+                posicao -=20; //desce 20 pixel por tick
+                dino.style.bottom = posicao +'px';
+            }
+        },20)
+
+    } else{
+        posicao +=20; //sobindo 20px por tick
+        dino.style.bottom = posicao +'px';
+    }
   }, 20);
 }
