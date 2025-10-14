@@ -42,29 +42,28 @@ function handlekeyUP(event) {
 document.addEventListener("keyup", handlekeyUP);
 
 function Pular() {
-  pulando = true;
-
-  let intervalosubida = setInterval(() => {
-    //Intervalo que faz o dino subir
-    if(posicao > 150){
-        clearInterval(intervalosubida);
     
-        //descer
+    pulando = true;
 
-        let intervalodescida = setInterval(()=> {
-            if(posicao <0){
-                //chegou ao chão: limpar o intervalo e permitir pular de novo
+    let intervalosubida = setInterval(() => {
+        
+        if (posicao >= 150) {
+            clearInterval(intervalosubida);
+        
+        // Descendo.
+        let intervalodescida = setInterval(() => {
+            if (posicao <= 0) {
                 clearInterval(intervalodescida);
                 pulando = false;
-            }else{
-                posicao -=20; //desce 20 pixel por tick
-                dino.style.bottom = posicao +'px';
+            } else {
+                posicao -= 20;
+                dino.style.bottom = posicao + 'px';
             }
-        },20)
-
-    } else{
-        posicao +=20; //sobindo 20px por tick
-        dino.style.bottom = posicao +'px';
-    }
-  }, 20);
+        }, 20);
+        } else {
+        // Subindo.
+        posicao += 20;
+        dino.style.bottom = posicao + 'px';
+        }
+    }, 20);
 }
