@@ -40,6 +40,7 @@ function handlekeyUP(event) {
 }
 
 document.addEventListener("keyup", handlekeyUP);
+criarCacto()
 
 function Pular() {
     
@@ -66,4 +67,36 @@ function Pular() {
         dino.style.bottom = posicao + 'px';
         }
     }, 20);
+}
+
+function criarCacto(){
+    const cacto = document.createElement('div');
+    //posicao inicial(px) a partir da esquerda
+    let cactoPosicao = 1800;
+
+    let randomTime = Math.random() * 6000;
+    cacto.classList.add('cacto');
+    cacto.style.left = cactoPosicao + 'px';
+    backgroung.appendChild(cacto);
+
+    //movimentar o cacto
+    let intervaloEsqueda = setInterval(() =>{
+        cactoPosicao -=10;
+        cacto.style.left = cactoPosicao + 'px';
+        //remover quando ele sair da tela
+        if(cactoPosicao <-60 ){
+            clearInterval(intervaloEsqueda);
+            if(backgroung.contains(cacto)) backgroung.removeChild(cacto);
+        } else if (cactoPosicao > 0 && cactoPosicao < 60 && posicao < 60 ){
+            //colisao detecta o fim do jogo
+            clearInterval(intervaloEsqueda);
+            //criar funcao game over
+            console.log("Game Over")
+        }else{
+            cactoPosicao -=10;
+            cacto.style.left = cactoPosicao + 'px';
+        }
+
+    },20)
+setTimeout(criarCacto, randomTime)
 }
