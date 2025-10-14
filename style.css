@@ -17,6 +17,14 @@ body {
     }
 }
 
+.cacto{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: 0;
+    background-image: url(assets/cactus.png);
+}
+
 .background {
     position: absolute;
     bottom: 0;
