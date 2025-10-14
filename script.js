@@ -10,7 +10,7 @@ const dino = document.querySelector(".dino");
  * Espera um elemento com a classe '.background' em 'index.html'.
  * @type {HtmlElement}
  */
-const backgroung = document.querySelector(".background");
+const background = document.querySelector(".background");
 
 /*
  * Flag que indica se o dino está no meio de um pulo.
@@ -39,8 +39,6 @@ function handlekeyUP(event) {
   }
 }
 
-document.addEventListener("keyup", handlekeyUP);
-criarCacto()
 
 function Pular() {
     
@@ -73,11 +71,10 @@ function criarCacto(){
     const cacto = document.createElement('div');
     //posicao inicial(px) a partir da esquerda
     let cactoPosicao = 1800;
-
-    let randomTime = Math.random() * 6000;
+    let randomTime = Math.random() + 6000;
     cacto.classList.add('cacto');
     cacto.style.left = cactoPosicao + 'px';
-    backgroung.appendChild(cacto);
+    background.appendChild(cacto);
 
     //movimentar o cacto
     let intervaloEsqueda = setInterval(() =>{
@@ -86,7 +83,7 @@ function criarCacto(){
         //remover quando ele sair da tela
         if(cactoPosicao <-60 ){
             clearInterval(intervaloEsqueda);
-            if(backgroung.contains(cacto)) backgroung.removeChild(cacto);
+            if(background.contains(cacto)) background.removeChild(cacto);
         } else if (cactoPosicao > 0 && cactoPosicao < 60 && posicao < 60 ){
             //colisao detecta o fim do jogo
             clearInterval(intervaloEsqueda);
@@ -98,5 +95,8 @@ function criarCacto(){
         }
 
     },20)
-setTimeout(criarCacto, randomTime)
+setTimeout(criarCacto, randomTime);
 }
+
+criarCacto()
+document.addEventListener("keyup", handlekeyUP);
