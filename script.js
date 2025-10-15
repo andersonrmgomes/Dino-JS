@@ -70,8 +70,12 @@ function Pular() {
 function criarCacto(){
     const cacto = document.createElement('div');
     //posicao inicial(px) a partir da esquerda
-    let cactoPosicao = 1800;
-    let randomTime = Math.random() + 6000;
+    let cactoPosicao = window.innerWidth + Math.random() * 300;
+    if (cactoPosicao > window.innerWidth){
+        cactoPosicao = window.innerWidth - 80;
+    }
+    let randomTime = 2000 + Math.random() * 4000; //entr 2 e 6 segundos
+    console.log(Math.random())
     cacto.classList.add('cacto');
     cacto.style.left = cactoPosicao + 'px';
     background.appendChild(cacto);
@@ -87,8 +91,8 @@ function criarCacto(){
         } else if (cactoPosicao > 0 && cactoPosicao < 60 && posicao < 60 ){
             //colisao detecta o fim do jogo
             clearInterval(intervaloEsqueda);
-            //criar funcao game over
-            console.log("Game Over")
+            document.body.innerHTML = "<h1 class='game-over'>Game Over</h1>";
+            
         }else{
             cactoPosicao -=10;
             cacto.style.left = cactoPosicao + 'px';
