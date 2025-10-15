@@ -1,16 +1,27 @@
+//tempo ativo do jogo
+let time = 0;
+let score = 0;
+let gameInterval = 0;
+let scoreInterval = 0;
+
+
 /*
  * Elemento do jogador (dinossauro).
  * Espera um elemento com a classe '.dino' em 'index.html'
  * @type {HtmlElement}
  */
 const dino = document.querySelector(".dino");
-localStorage.setItem('perdeu', 0);
+
 /*
  * Elementyo que representa o cenário / pista do jogo.
  * Espera um elemento com a classe '.background' em 'index.html'.
  * @type {HtmlElement}
  */
 const background = document.querySelector(".background");
+
+const timeE1 = document.getElementById('time');
+const scoreE1 = document.getElementById('score');
+
 
 /*
  * Flag que indica se o dino está no meio de um pulo.
@@ -92,7 +103,6 @@ function criarCacto(){
             //colisao detecta o fim do jogo
             clearInterval(intervaloEsqueda);
             document.body.innerHTML = "<h1 class='game-over'>Game Over</h1>";
-            localStorage.setItem('perdeu', 1);
             
         }else{
             cactoPosicao -=10;
@@ -103,5 +113,26 @@ function criarCacto(){
 setTimeout(criarCacto, randomTime);
 }
 
+function startGameCount(){
+    if(gameInterval || scoreInterval) return;
+    
+    gameInterval = setInterval(()=>{
+        if(GameOver) return;
+        time +=1;
+        //atualizar elemento na pagina
+        if(timeE1) timeE1.textContent = `Tempo: ${time}s`; 
+    },1000);
+
+    scoreInterval = setInterval(()=>{
+        if(GameOver) return;
+        score +=1;
+        //atualizar elemento na pagina
+        if(scoreE1) scoreE1.textContent = `Pontos: ${score}`; 
+    },1000);
+
+
+}
+
+startGameCount()
 criarCacto()
 document.addEventListener("keyup", handlekeyUP);
