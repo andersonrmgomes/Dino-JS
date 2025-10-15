@@ -128,7 +128,7 @@ function startGameCount(){
         score +=1;
         //atualizar elemento na pagina
         if(scoreE1) scoreE1.textContent = `Pontos: ${score}`; 
-    },1000);
+    },200);
 
 
 }
