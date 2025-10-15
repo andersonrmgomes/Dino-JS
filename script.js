@@ -4,7 +4,7 @@
  * @type {HtmlElement}
  */
 const dino = document.querySelector(".dino");
-
+localStorage.setItem('perdeu', 0);
 /*
  * Elementyo que representa o cenário / pista do jogo.
  * Espera um elemento com a classe '.background' em 'index.html'.
@@ -92,6 +92,7 @@ function criarCacto(){
             //colisao detecta o fim do jogo
             clearInterval(intervaloEsqueda);
             document.body.innerHTML = "<h1 class='game-over'>Game Over</h1>";
+            localStorage.setItem('perdeu', 1);
             
         }else{
             cactoPosicao -=10;
