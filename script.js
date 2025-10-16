@@ -1,3 +1,7 @@
+const gameOverSound = new Audio('assets/sound-die.ogg');
+gameOverSound.volume = 0.6; // volume (0.0 a 1.0)
+
+
 //tempo ativo do jogo
 let time = 0;
 let score = 0;
@@ -86,7 +90,7 @@ function criarCacto(){
         cactoPosicao = window.innerWidth - 80;
     }
     let randomTime = 2000 + Math.random() * 4000; //entr 2 e 6 segundos
-    console.log(Math.random())
+    // console.log(Math.random())
     cacto.classList.add('cacto');
     cacto.style.left = cactoPosicao + 'px';
     background.appendChild(cacto);
@@ -102,7 +106,7 @@ function criarCacto(){
         } else if (cactoPosicao > 0 && cactoPosicao < 60 && posicao < 60 ){
             //colisao detecta o fim do jogo
             clearInterval(intervaloEsqueda);
-            document.body.innerHTML = "<h1 class='game-over'>Game Over</h1>";
+            handleGameOver();
             
         }else{
             cactoPosicao -=10;
@@ -129,10 +133,43 @@ function startGameCount(){
         //atualizar elemento na pagina
         if(scoreE1) scoreE1.textContent = `Pontos: ${score}`; 
     },200);
-
-
 }
 
+/* Trata o fim do jogo: limpa timers, marca estado e exibe tela de Game Over com pontuação.
+ */
+function handleGameOver() {
+    if (GameOver) return;
+    GameOver = true;
+
+    if (gameInterval) clearInterval(gameInterval);
+    if (scoreInterval) clearInterval(scoreInterval);
+
+    gameOverSound.pause();
+    gameOverSound.currentTime = 0;
+    gameOverSound.play();
+
+    document.body.innerHTML = `
+        <h1 class="game-over">GAME OVER</h1>
+        <p class="final-score">Pontos: ${score} — Tempo: ${time}s</p>
+        <button class="restart-btn" onclick="restartGame()">Reiniciar</button>
+        <p class="restart-hint">(ou pressione Espaço)</p>
+    `;
+
+    // Escuta a tecla espaço para reiniciar
+    document.addEventListener('keyup', function onRestartKey(e) {
+        if (e.code === 'Space') {
+            document.removeEventListener('keyup', onRestartKey);
+            restartGame();
+        }
+    });
+}
+
+
+
 startGameCount()
+
+function restartGame() {
+    location.reload();
+}
 criarCacto()
 document.addEventListener("keyup", handlekeyUP);
